@@ -1,0 +1,17 @@
+{
+  "name": "sabana-recruiting-exercise",
+  "version": "1.0.0",
+  "description": "Recruiting exercise for Sabana QA position",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/cucumber-js --require setup.js --require tests"
+  },
+  "author": "tongilcoto",
+  "license": "ISC",
+  "dependencies": {
+    "@cucumber/cucumber": "^7.0.0-rc.0",
+    "axios": "^0.21.0",
+    "expect": "^26.6.2",
+    "randexp": "^0.5.3"
+  }
+}
