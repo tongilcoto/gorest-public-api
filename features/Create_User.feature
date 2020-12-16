@@ -1,5 +1,6 @@
 Feature: As an authenticated api consumer I can create a new user
 
+@newResourceId
 Scenario: As an authenticated api consumer I can create a new user
 
   Given an "authenticated" api consumer

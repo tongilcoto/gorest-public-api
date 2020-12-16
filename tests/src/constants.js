@@ -77,8 +77,8 @@ exports.productCategoriesResponseFields = {
 
 exports.productCategoriesRequestFields = {
     mandatory: {
-        product_id: {type: 'eval', value: 'global.product_id'},
-        category_id: {type: 'eval', value: 'global.category_id'}
+        product_id: {type: 'eval', value: 'global.productId'},
+        category_id: {type: 'eval', value: 'global.categoryId'}
     }
 };
 

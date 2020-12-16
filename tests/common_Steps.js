@@ -38,7 +38,8 @@ Then(/^the resource is still available$/, async () => {
 When(/^he creates a new "(complete|only mandatory)" resource of "(products|users|posts|comments|todos)"$/, async (fieldsCondition, resource) => {
     global.resourceData = requestUtils.generateResourceData(resource, fieldsCondition);
     await apiRequests.createResource(resource, resourceData);
-    global.resource_id = response.data.data.id
+    global.resourceId = response.data.data.id;
+    global.resourcesList = `${resource}/${resourceId}\n`;
 });
 
 Then(/^the new resource is available at location header$/, async () => {

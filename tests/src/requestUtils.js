@@ -64,9 +64,9 @@ class RequestUtils {
      */
     async verifyResourceByPath(path) {
         const pathArray = path.split('/');
-        const resource_id = pathArray.pop();
+        const resourceId = pathArray.pop();
         const resource = pathArray.pop();
-        await apiRequests.getResource(resource, resource_id);
+        await apiRequests.getResource(resource, resourceId);
         expect(response.status).toEqual(responseStatuses.SYNCHRONOUS_OK);
         console.log(`Status ${responseStatuses.SYNCHRONOUS_OK} Checked`);
     }

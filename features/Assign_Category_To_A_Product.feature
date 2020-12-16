@@ -1,5 +1,6 @@
 Feature: As an authenticated api consumer I can assign a category to a given product
 
+@newResourceId
 Scenario: As an authenticated api consumer I can assign a category to a given product
 
   Given an "authenticated" api consumer

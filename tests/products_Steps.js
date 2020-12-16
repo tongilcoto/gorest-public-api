@@ -10,18 +10,20 @@ Then(/^products response "(mandatory|all)" fields are populated$/, (fieldsToChec
 });
 
 When(/^he assigns a category to the new product$/, async () => {
-    global.product_id = resource_id;
-    [global.category_id, global.category_name] = await requestUtils.getRandomCategory();
+    global.productId = resourceId;
+    [global.categoryId, global.categoryName] = await requestUtils.getRandomCategory();
     global.resourceData = requestUtils.generateResourceData(resources.PRODUCT_CATEGORIES, stepWording.COMPLETE);
     console.log(`New Product - Category link: ${JSON.stringify(resourceData)}`);
     await apiRequests.createResource(resources.PRODUCT_CATEGORIES, resourceData);
+    global.resourceId = response.data.data.id;
+    global.resourcesList = `${global.resourcesList}${resources.PRODUCT_CATEGORIES}/${global.resourceId}\n`
 });
 
 Then(/^the product is updated with the new category$/, async () => {
-    await apiRequests.getResource(resources.PRODUCTS, product_id);
+    await apiRequests.getResource(resources.PRODUCTS, productId);
     const category = response.data.data.categories[0];
     console.log(`Received Product Category: ${JSON.stringify(category)}`);
-    expect(category.id).toEqual(category_id);
-    expect(category.name).toEqual(category_name);
+    expect(category.id).toEqual(categoryId);
+    expect(category.name).toEqual(categoryName);
     console.log(`Category update Checked`);
 });
