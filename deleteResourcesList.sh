@@ -1,7 +1,7 @@
 #!/bin/bash
 
 filename="newResourcesList.log"
- 
+
 while read line
 do
     echo "#--> https://gorest.co.in/public-api/$line"
@@ -13,3 +13,5 @@ do
 
 done < $filename
 
+newFilename="$filename".$(date +'%Y%m%d')
+mv $filename $newFilename
