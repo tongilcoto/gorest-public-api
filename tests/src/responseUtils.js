@@ -66,7 +66,7 @@ class ResponseUtils {
      */
     getCuratedNumberFields(data) {
         const pathArray = response.request.path.split('/');
-        const resource_id = pathArray.pop();
+        const resourceId = pathArray.pop();
         const resource = pathArray.pop();
         Object.keys(data).filter((field) => numberFieldsAsStrings[resource].includes(field))
             .map((field) => data[field] = parseFloat(data[field]));

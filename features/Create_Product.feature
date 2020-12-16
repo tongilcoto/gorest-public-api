@@ -1,5 +1,6 @@
 Feature: As an authenticated api consumer I can create a new product
 
+@newResourceId
 Scenario: As an authenticated api consumer I can create a new product
 
   Given an "authenticated" api consumer

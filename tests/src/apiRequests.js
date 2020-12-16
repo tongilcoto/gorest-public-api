@@ -48,10 +48,10 @@ class APIRequests {
      * It creates global variable 'response' which will host the api response
      * @param {string} resource: API resource where to send the request to. Supported Values: resources.CATEGORIES, resources.PRODUCTS, 
      *  resources.USERS, resources.PRODUCT_CATEGORIES, 'posts', 'comments', 'todos'
-     * @param {numnber} resource_id: Resource unique identifier
+     * @param {numnber} resourceId: Resource unique identifier
      */
-     async getResource(resource, resource_id) {
-        const path = `${resource}/${resource_id}`;
+     async getResource(resource, resourceId) {
+        const path = `${resource}/${resourceId}`;
         console.log(`Asking for ${path}`);
         global.response = await api.get(path);
     };
@@ -80,7 +80,7 @@ class APIRequests {
      */
     async createResource(resource, data) {
         global.response = await api.post(resource, data, {headers: {Authorization: accessToken}});
-        console.log('Created Resource');
+        console.log(`Created Resource at ${resource}`);
         console.log(response.data);
     }
 
