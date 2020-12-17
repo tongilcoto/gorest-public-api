@@ -15,8 +15,6 @@ When(/^he assigns a category to the new product$/, async () => {
     global.resourceData = requestUtils.generateResourceData(resources.PRODUCT_CATEGORIES, stepWording.COMPLETE);
     console.log(`New Product - Category link: ${JSON.stringify(resourceData)}`);
     await apiRequests.createResource(resources.PRODUCT_CATEGORIES, resourceData);
-    global.resourceId = response.data.data.id;
-    global.resourcesList = `${global.resourcesList}${resources.PRODUCT_CATEGORIES}/${global.resourceId}\n`
 });
 
 Then(/^the product is updated with the new category$/, async () => {
