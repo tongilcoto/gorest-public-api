@@ -6,4 +6,4 @@ node_modules
 reports/*
 hiptest-publisher.conf
 .DS_Store
-features
+features/*.feature
