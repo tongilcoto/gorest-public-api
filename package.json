@@ -11,6 +11,7 @@
   "dependencies": {
     "@cucumber/cucumber": "^7.0.0-rc.0",
     "axios": "^0.21.0",
+    "cucumber-junit": "^1.7.1",
     "expect": "^26.6.2",
     "randexp": "^0.5.3"
   }
