@@ -64,3 +64,9 @@ Since the API does not provide log in neither pay options, these are the critica
 1. Generate your access token: https://gorest.co.in/access-token
 2. Create a new environment variable with it: `export API_ACCESS_TOKEN=<access token>`
 3. Launch test plan: `npm test`
+
+## Reports
+1. json: `./node_modules/.bin/cucumber-js --require setup.js --require tests --format json:<report file path>`
+2. junit (xml): 2 steps
+-- launch the json report
+-- convert it to xml: `cat <json report file path> | ./node_modules/.bin/cucumber-junit > <report file path>`
