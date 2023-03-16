@@ -3,10 +3,10 @@ const {authmethods, responseStatuses, errorMessages} = require('./src/constants.
 const expect = require('expect');
 
 Given(/^an "(anonymous|authenticated)" api consumer$/, (authmethod) => {
-    global.accessToken = (authmethod === authmethods.AUTHENTICATED) ? `Bearer ${process.env.GOREST_API_TOKEN}` : null;
+    global.accessToken = (authmethod === authmethods.AUTHENTICATED) ? `Bearer ${process.env.API_ACCESS_TOKEN}` : null;
 });
 
-When(/^he asks for "(first|intermediate|random|last)" page of "(users|posts|comments|todos)"$/, async (page, resource) => {
+When(/^he asks for "(first|intermediate|random|last)" page of "(products|users|categories|product-categories|product-categories|posts|comments|todos)"$/, async (page, resource) => {
     global.requestedPage = page;
     await apiRequests.getPage(page, resource);
 });
@@ -22,7 +22,7 @@ Then(/^the number of items per page matches response meta info$/, () => {
     console.log('Items per page follow Limit property Checked');
 });
 
-When(/^he deletes a random resource of "(users|posts|comments|todos)"$/, async (resource) => {
+When(/^he deletes a random resource of "(products|users|product-categories|posts|comments|todos)"$/, async (resource) => {
     await apiRequests.deleteResource(resource);
 });
 
@@ -35,11 +35,11 @@ Then(/^the resource is still available$/, async () => {
     await requestUtils.verifyResourceByPath(response.request.path);
 });
 
-When(/^he creates a new "(complete|only mandatory)" resource of "(user|post|comment|todo)"$/, async (fieldsCondition, resource) => {
+When(/^he creates a new "(complete|only mandatory)" resource of "(products|users|posts|comments|todos)"$/, async (fieldsCondition, resource) => {
     global.resourceData = requestUtils.generateResourceData(resource, fieldsCondition);
-    await apiRequests.createResource(resource + 's', resourceData);
+    await apiRequests.createResource(resource, resourceData);
     global.resourceId = response.data.data.id;
-    global.resourcesList = `${resource}s/${resourceId}\n`;
+    global.resourcesList = `${resource}/${resourceId}\n`;
 });
 
 Then(/^the new resource is available at location header$/, async () => {
@@ -47,8 +47,8 @@ Then(/^the new resource is available at location header$/, async () => {
 });
 
 Then(/^the resource data matches original data$/, async () => {
-    expect(responseUtils.getCuratedResponseData(response.data.data))
-            .toMatchObject(resourceData);
+    expect(responseUtils.getCuratedNumberFields(response.data.data))
+        .toMatchObject(responseUtils.getCuratedNumberFields(resourceData));
     console.log('No missing info Checked');
 });
 

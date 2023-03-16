@@ -1,5 +1,5 @@
 const expect = require('expect');
-const {ordinals, capitalizedFields} = require('./constants.js');
+const {ordinals, numberFieldsAsStrings} = require('./constants.js');
 
 class ResponseUtils {
 
@@ -64,12 +64,12 @@ class ResponseUtils {
      * @param {Object} data: Resource object to be curated
      * @returns {Object} configured fields are transformed from string to number
      */
-    getCuratedResponseData(data) {
+    getCuratedNumberFields(data) {
         const pathArray = response.request.path.split('/');
         const resourceId = pathArray.pop();
         const resource = pathArray.pop();
-        Object.keys(data).filter((field) => capitalizedFields[resource].includes(field))
-            .map((field) => data[field] = data[field].charAt(0).toUpperCase() + data[field].slice(1));
+        Object.keys(data).filter((field) => numberFieldsAsStrings[resource].includes(field))
+            .map((field) => data[field] = parseFloat(data[field]));
         console.log(data)
         return data;
     }

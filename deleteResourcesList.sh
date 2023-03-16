@@ -7,7 +7,7 @@ do
     echo "#--> https://gorest.co.in/public-api/$line"
     echo "..."
  
-    curl -i -H "Accept:application/json" -H "Content-Type:application/json" -H "Authorization: Bearer ${API_ACCESS_TOKEN}" -XDELETE "https://gorest.co.in/public-api/$line"
+    curl -i -H "Accept:application/json" -H "Content-Type:application/json" -H "Authorization: Bearer $GOREST_API_TOKEN" -XDELETE "https://gorest.co.in/public-api/$line"
     echo
     echo
 

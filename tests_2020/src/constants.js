@@ -1,5 +1,7 @@
 exports.resources = {
-    USER: 'user',
+    CATEGORIES: 'categories',
+    PRODUCTS: 'products',
+    PRODUCT_CATEGORIES: 'product-categories',
     USERS: 'users'
 };
 
@@ -40,6 +42,45 @@ exports.fieldTypes = {
     REGEXP: 'regexp'
 };
 
+exports.productsResponseFields = {
+    mandatory: [
+        "id",
+        "name",
+        "description", 
+        "image", 
+        "price", 
+        "status"
+    ],
+    optional: ["discount_amount", "categories"]
+};
+
+exports.productsRequestFields = {
+    mandatory: {
+        name: {type: 'regexp', value: regexpDoubleString},
+        description: {type: 'regexp', value: regexpText},
+        image: {type: 'regexp', value: regexpUrl},
+        price: {type: 'regexp', value: regexpInteger},
+        status: {type: 'boolean'}
+    },
+    optional: {
+        discount_amount: {type: 'eval', value: '(parseInt(data.price) * 0.10).toString()'}
+    }
+};
+
+exports.productCategoriesResponseFields = {
+    mandatory: [
+        "id",
+        "product_id",
+        "category_id" 
+    ]
+};
+
+exports.productCategoriesRequestFields = {
+    mandatory: {
+        product_id: {type: 'eval', value: 'global.productId'},
+        category_id: {type: 'eval', value: 'global.categoryId'}
+    }
+};
 
 exports.usersResponseFields = {
     mandatory: [
@@ -47,7 +88,9 @@ exports.usersResponseFields = {
         "name",
         "email", 
         "gender", 
-        "status"
+        "status",
+        "created_at",
+        "updated_at"
     ]
 };
 
@@ -65,7 +108,9 @@ exports.postsResponseFields = {
         "id",
         "user_id",
         "title", 
-        "body"
+        "body", 
+        "created_at",
+        "updated_at"
     ]
 };
 
@@ -75,7 +120,9 @@ exports.commentsResponseFields = {
         "post_id",
         "name",
         "email",
-        "body"
+        "body", 
+        "created_at",
+        "updated_at"
     ]
 };
 
@@ -84,17 +131,21 @@ exports.todosResponseFields = {
         "id",
         "user_id",
         "title", 
-        "due_on",
-        "status"
+        "completed",
+        "created_at",
+        "updated_at"
     ]
 };
 
 exports.formsForResouce = {
-    "user": this.usersRequestFields
+    "products": this.productsRequestFields,
+    "product-categories":  this.productCategoriesRequestFields,
+    "users": this.usersRequestFields
 }
 
-exports.capitalizedFields = {
-    users: ["gender", "status"]
+exports.numberFieldsAsStrings = {
+    products: ["price", "discount_amount"],
+    users: []
 }
 
 exports.stepWording = {
