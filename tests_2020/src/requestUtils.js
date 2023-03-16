@@ -8,7 +8,8 @@ class RequestUtils {
      * Creates the appropiate JSON object for a given resource. It creates random data that matches 
      * certain configured conditions. It uses different methods in order to generate the correct data.
      * It works with a list of mandatory fields and a list of optional fields.
-     * @param {string} resource: API resource where to send the request to. Supported Values: resources.USER, 'posts', 
+     * @param {string} resource: API resource where to send the request to. Supported Values: 
+     *  resources.CATEGORIES, resources.PRODUCTS, resources.USERS, resources.PRODUCT_CATEGORIES, 'posts', 
      *  'comments', 'todos'
      * @param {string} fieldsCondition: Indicates the fields list to be generated. Supported Values: 
      *  stepWording.MANDATORY, stepWording.OPTIONAL
@@ -43,7 +44,8 @@ class RequestUtils {
      * certain configured conditions. It uses different methods in order to generate the correct data.
      * It works with a list of mandatory fields and a list of optional fields.
      * @param {string} resource: API resource where to send the request to. Supported Values: 
-     *  resources.USERS, 'posts', 'comments', 'todos'
+     *  resources.CATEGORIES, resources.PRODUCTS, resources.USERS, resources.PRODUCT_CATEGORIES, 'posts', 
+     *  'comments', 'todos'
      * @param {string} fieldsCondition: Indicates the fields list to be generated. Supported Values: 
      *  stepWording.MANDATORY, stepWording.OPTIONAL
      * @returns {Object} : resource object.

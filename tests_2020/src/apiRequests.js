@@ -46,13 +46,14 @@ class APIRequests {
     /**
      * Performs a get request on a given resource in order to get all its details
      * It creates global variable 'response' which will host the api response
-     * @param {string} resource: API resource where to send the request to. Supported Values: resources.USERS, 'posts', 'comments', 'todos'
-     * @param {number} resourceId: Resource unique identifier
+     * @param {string} resource: API resource where to send the request to. Supported Values: resources.CATEGORIES, resources.PRODUCTS, 
+     *  resources.USERS, resources.PRODUCT_CATEGORIES, 'posts', 'comments', 'todos'
+     * @param {numnber} resourceId: Resource unique identifier
      */
      async getResource(resource, resourceId) {
         const path = `${resource}/${resourceId}`;
         console.log(`Asking for ${path}`);
-        global.response = await api.get(path, {headers: {Authorization: global.accessToken}});
+        global.response = await api.get(path);
     };
 
     /**
@@ -73,11 +74,12 @@ class APIRequests {
     /**
      * Creates a new resource for a given resource with the given data
      * It creates global variable 'response' which will host the api response
-     * @param {string} resource: API resource where to send the request to. Supported Values: resources.USERS, 'posts', 'comments', 'todos'
+     * @param {string} resource: API resource where to send the request to. Supported Values: resources.CATEGORIES, resources.PRODUCTS, 
+     *  resources.USERS, resources.PRODUCT_CATEGORIES, 'posts', 'comments', 'todos'
      * @param {Object} data: JSON object containing resource data
      */
     async createResource(resource, data) {
-        global.response = await api.post(resource, data, {headers: {Authorization: global.accessToken}});
+        global.response = await api.post(resource, data, {headers: {Authorization: accessToken}});
         console.log(`Created Resource at ${resource}`);
         console.log(response.data);
     }
