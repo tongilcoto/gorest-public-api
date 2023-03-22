@@ -1,30 +1,56 @@
-# This is a basic workflow that is manually triggered
-
-name: Manual workflow
-
-# Controls when the action will run. Workflow runs when manually triggered using the UI
-# or API.
+name: QA Automation
 on:
+  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-    # Inputs the workflow accepts.
     inputs:
-      name:
-        # Friendly description to be shown in the UI instead of 'name'
-        description: 'Person to greet'
-        # Default value if no value is explicitly provided
-        default: 'World'
-        # Input has to be provided for the workflow to run
+      TEST_PLAN_KEY:
+        description: 'Jira Issue Id or Filter Id hosting the features to be tested'
         required: true
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+        default: 'BGHA-15'
+      IS_FEATURE:
+        description: 'Tells if the Jira Issue is a User Story, if so, the generated execution will be created as a sub test execution in Jira'
+        required: true
+        type: choice
+        default: 'N'
+        options:
+        - 'Y'
+        - 'N'
 jobs:
-  # This workflow contains a single job called "greet"
-  greet:
-    # The type of runner that the job will run on
+  build:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    env:
+      XRAY_CLIENT_ID: ${{ secrets.XRAY_CLIENT_ID }}
+      XRAY_CLIENT_SECRET: ${{ secrets.XRAY_CLIENT_SECRET }}
+      JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+      GOREST_API_TOKEN: ${{ secrets.GOREST_API_TOKEN }}
+      TEST_PLAN_KEY: ${{ inputs.TEST_PLAN_KEY }}
+      IS_FEATURE: ${{ inputs.IS_FEATURE }}
     steps:
-    # Runs a single command using the runners shell
-    - name: Send greeting
-      run: echo "Hello ${{ github.event.inputs.name }}"
+    - name: Checkout code
+      id: checkout
+      uses: actions/checkout@v3
+    - name: Set up Node
+      uses: actions/setup-node@v3
+      id: setup
+      with:
+        node-version: 18
+    - name: Deploy Packages
+      id: deploy
+      run: npm ci
+    - name: Download Features
+      id: features
+      run: |
+        ./xray-api-download-features.sh $TEST_PLAN_KEY
+    - name: Run framework with report
+      id: execution
+      run: |
+        mkdir reports
+        npm run report
+    - name: Upload results to Xray
+      if: always()
+      run: |
+        export ARE_TESTS_FAILED="N"
+        if [[ ${{ steps.execution.outcome }} == 'failure' ]]; then
+          export ARE_TESTS_FAILED="Y"
+        fi
+        ./xray-api-upload-cucumber-report.sh $TEST_PLAN_KEY $IS_FEATURE
