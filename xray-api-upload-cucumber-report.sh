@@ -33,7 +33,7 @@ if [ "$IS_FEATURE" == "N" ]; then
     echo '{
     "fields": {
         "project": {
-            "id": "10002"
+            "id": "10004"
         },
         "summary": "'$TEST_PLAN_KEY' '$today' Test Execution Results",
         "description": "'$TEST_PLAN_KEY' '$today' Test Execution Results from Gitlab Pipeline. \n'$executionStatusTransitionComment'",
@@ -49,7 +49,7 @@ else
     echo '{
     "fields": {
         "project": {
-            "id": "10002"
+            "id": "10004"
         },
         "parent": {
             "key": "'$TEST_PLAN_KEY'"
