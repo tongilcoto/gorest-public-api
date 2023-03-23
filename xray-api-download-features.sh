@@ -14,5 +14,8 @@ fi
 token=$(curl -H "Content-Type: application/json" -X POST --data "{ \"client_id\": \"$XRAY_CLIENT_ID\",\"client_secret\": \"$XRAY_CLIENT_SECRET\" }" https://xray.cloud.getxray.app/api/v2/authenticate| tr -d '"')
 cd features
 rm *
+echo "Downloading $TEST_PLAN_KEY features ..."
 curl -H "Content-Type: application/json" -X GET -H "Authorization: Bearer ${token}" "https://xray.cloud.getxray.app/api/v2/export/cucumber?keys=$TEST_PLAN_KEY" -o featureBundle.zip
+pwd
+ls -ltra
 unzip -j -o featureBundle.zip
